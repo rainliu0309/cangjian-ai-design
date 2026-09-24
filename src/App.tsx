@@ -570,7 +570,7 @@ export function App() {
           </footer>
         )}
         {detail === 'save-memory' ? <Dialog title="保存这次看见" close={() => D('')}>
-          <div className="memory-save-dialog"><div className="eyebrow">留住一次发现</div><h2>保存这次看见</h2><form onSubmit={e => { e.preventDefault(); persistMemory(); }}><label htmlFor="memory-title">给这组收藏起个名字</label><input id="memory-title" autoFocus maxLength={60} required value={memoryTitle} onChange={e => setMemoryTitle(e.target.value)}/>{(saveMessage || historyError) && <p role="alert">{historyError || saveMessage}</p>}<button className="primary" disabled={!memoryTitle.trim() || !!historyError} type="submit">{memoryId ? '更新保存' : '保存到回望'} <ArrowUpRight size={16}/></button></form></div>
+          <div className="memory-save-dialog"><div className="eyebrow">留住一次发现</div><h2>保存这次看见</h2><form onSubmit={e => { e.preventDefault(); persistMemory(); }}><label htmlFor="memory-title">给这组收藏起个名字</label><input id="memory-title" autoFocus maxLength={60} required value={memoryTitle} onChange={e => setMemoryTitle(e.target.value)}/>{(saveMessage || historyError) && <p role="alert">{historyError || saveMessage}</p>}<button className="primary memory-save-submit" disabled={!memoryTitle.trim() || !!historyError} type="submit">{memoryId ? '更新保存' : '保存到回望'} <ArrowUpRight size={16}/></button></form></div>
         </Dialog> : detail && (
           <Dialog
             title={pattern?.name || tension?.name || save?.title || "关于藏见"}
