@@ -257,9 +257,9 @@ export function App() {
               </button>
             </nav>
           )}
-          <div className="header-links"><button className="history-link" aria-current={view === 'history' ? 'page' : undefined} onClick={showHistory}><RotateCcw size={13}/>回望</button>
-          <button className="about-link" onClick={() => D("about")}>
-            关于藏见 <ArrowUpRight size={13} />
+          <div className="header-links"><button className="history-link" style={{ fontWeight: 500 }} aria-current={view === 'history' ? 'page' : undefined} onClick={showHistory}>回望</button>
+          <button className="about-link" style={{ fontWeight: 500 }} onClick={() => D("about")}>
+            关于藏见
           </button>
           </div>
         </header>
