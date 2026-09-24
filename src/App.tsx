@@ -324,12 +324,7 @@ export function App() {
                 <Bubble name="天然的触感" small onClick={input} />
               </div>
             </section>
-            <footer className="landing-footer">
-              <p>
-                ▱ 散落的喜欢 <ArrowRight size={14} /> ◯ 共同的线索{" "}
-                <ArrowRight size={14} /> ◎ 你的偏好地图
-              </p>
-            </footer>
+            <footer className="landing-footer"><p>CANGJIAN © 2026</p></footer>
           </main>
         ) : view === "input" ? (
           <main className="input-page">
