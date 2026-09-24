@@ -324,7 +324,7 @@ export function App() {
                 <Bubble name="天然的触感" small onClick={input} />
               </div>
             </section>
-            <footer className="landing-footer"><p>CANGJIAN © 2026</p></footer>
+            <footer className="footer landing-footer"><p>CANGJIAN © 2026 · Ruiying Liu</p></footer>
           </main>
         ) : view === "input" ? (
           <main className="input-page">
@@ -567,7 +567,7 @@ export function App() {
         )}
         {view !== "home" && (
           <footer className="footer">
-            <span>CANGJIAN © 2026</span>
+            <span>CANGJIAN © 2026 · Ruiying Liu</span>
           </footer>
         )}
         {detail === 'save-memory' ? <Dialog title="保存这次看见" close={() => D('')}>
