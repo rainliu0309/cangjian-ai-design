@@ -1,0 +1,11 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { DemoProvider } from '../server/ai/demoProvider';
+import { parseModelJSON } from '../server/ai/agnesClient';
+import { validateAnalysis, collectionSchema } from '../shared/schema';
+import { sample } from '../src/data/sample';
+import { mapLayout } from '../src/lib/layout';
+test('sample has grounded patterns, tension and feedback changes strength', async()=>{const p=new DemoProvider();const a=await p.analyzeCollection(sample);assert.ok(a.patterns.length>=3);assert.equal(a.tensions.length,1);validateAnalysis(a,sample);const b=await p.refineTasteMap(sample,a,[{patternId:a.patterns[0].id,value:'no'}]);assert.ok(b.patterns[0].strength<a.patterns[0].strength);});
+test('different collections change analysis; unrelated items do not force patterns',async()=>{const p=new DemoProvider();const travel=[1,2,3].map(n=>({id:`t${n}`,title:'森林徒步'+n,content:'自然风景与露营',tags:[]}));const a=await p.analyzeCollection(travel);assert.equal(a.patterns[0].name,'向自然靠近');const b=await p.analyzeCollection([{id:'a',title:'数学',content:'代数',tags:[]},{id:'b',title:'舞蹈',content:'芭蕾',tags:[]},{id:'c',title:'茶杯',content:'陶瓷',tags:[]}]);assert.equal(b.patterns.length,0);});
+test('malformed JSON, invented evidence and too few saves rejected',async()=>{assert.throws(()=>parseModelJSON('not json'));assert.deepEqual(parseModelJSON('```json\n{"a":1}\n```'),{a:1});assert.equal(collectionSchema.safeParse(sample.slice(0,2)).success,false);const a=await new DemoProvider().analyzeCollection(sample);a.patterns[0].evidence.push('invented');assert.throws(()=>validateAnalysis(a,sample));});
+test('layout deterministic and within desktop/mobile bounds',async()=>{const a=await new DemoProvider().analyzeCollection(sample);for(const compact of [true,false]){const l=mapLayout(sample,a,compact);assert.deepEqual(l,mapLayout(sample,a,compact));for(const p of l.tiles){assert.ok(p.x>0&&p.x<l.width);assert.ok(p.y>0&&p.y<l.height);}}});
