@@ -278,7 +278,6 @@ export function App() {
                   <i className="hero-period" aria-label="。" />
                 </span>
               </h1>
-              <p className="english">See the patterns behind what you save.</p>
               <p className="description">
                 收藏帮你留下喜欢的东西。
                 <br />
