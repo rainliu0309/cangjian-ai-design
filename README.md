@@ -5,6 +5,8 @@
 ![Node.js](https://img.shields.io/badge/Node.js-22%2B-3c873a?logo=nodedotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white)
 
+**[查看线上演示 →](https://cangjian-ai-design.onrender.com)**
+
 ## 功能
 
 - 从 3–20 条收藏中提炼有证据支撑的偏好线索
