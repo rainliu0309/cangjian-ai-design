@@ -24,3 +24,4 @@ dialog:has(.detail-photo) .close{position:absolute;top:50px;right:50px;z-index:5
 @media(min-width:700px){.input-page,.map-page{padding-top:0}.input-page>h2,.map-page h2{margin-top:0}}
 @media(max-width:699px){dialog .close{margin:0 0 16px auto}dialog:has(.detail-photo) .close{top:42px;right:42px;margin:0}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.history-link,.about-link{position:relative;transition:color .2s}.history-link::after,.about-link::after{content:'';position:absolute;right:0;bottom:-5px;left:0;height:1px;transform:scaleX(0);transform-origin:center;background:#ff2442;transition:transform .2s}.history-link:hover,.about-link:hover{color:#ff2442}.history-link:hover::after,.about-link:hover::after{transform:scaleX(1)}
