@@ -553,7 +553,11 @@ export function App() {
                       重新选择收藏
                     </button>
                   </div>
-                  {saveMessage && <p className="memory-save-status" role="status">{saveMessage} <button onClick={showHistory}>查看回望 ↗</button></p>}
+                  {reviewingMemory ? (
+                    <p className="memory-save-status">来自回望 <button onClick={showHistory}>返回回望 ↗</button></p>
+                  ) : saveMessage && (
+                    <p className="memory-save-status" role="status">{saveMessage} <button onClick={showHistory}>查看回望 ↗</button></p>
+                  )}
                 </>
               )
             )}
