@@ -9,6 +9,9 @@ import {
   Layers,
   Eye,
   RotateCcw,
+  Bookmark,
+  History as HistoryIcon,
+  Info,
 } from "lucide-react";
 import { sample } from "./data/sample";
 import { analyze } from "./lib/api";
@@ -96,6 +99,7 @@ export function App() {
   const [records, setRecords] = useState<Memory[]>([]);
   const [historyError, setHistoryError] = useState('');
   const [memoryId, setMemoryId] = useState('');
+  const [reviewingMemory, setReviewingMemory] = useState(false);
   const [memoryTitle, setMemoryTitle] = useState('');
   const [saveMessage, setSaveMessage] = useState('');
   useEffect(() => {
@@ -107,7 +111,7 @@ export function App() {
   function openMemory(record: Memory) {
     abort.current?.abort(); L(false); E(''); D('');
     I(record.items); R(record.result); F(record.feedback); SP(true);
-    setMemoryId(record.id); setMemoryTitle(record.title); setSaveMessage(''); V('map');
+    setReviewingMemory(true); setMemoryId(record.id); setMemoryTitle(record.title); setSaveMessage(''); V('map');
   }
   function removeMemory(record: Memory) {
     if (!confirm(`删除「${record.title}」？删除后无法恢复。`)) return;
@@ -173,7 +177,7 @@ export function App() {
     const ctrl = new AbortController();
     abort.current = ctrl;
     I(next);
-    setMemoryId(''); setMemoryTitle(''); setSaveMessage('');
+    setReviewingMemory(false); setMemoryId(''); setMemoryTitle(''); setSaveMessage('');
     R(null);
     F({});
     SP(true);
@@ -222,6 +226,7 @@ export function App() {
     abort.current?.abort();
     L(false);
     E("");
+    setReviewingMemory(false);
     V("input");
   }
   const layout = mapLayout(items, result, compact),
@@ -248,19 +253,10 @@ export function App() {
               CANGJIAN<small>收藏之外，自有发现</small>
             </span>
           </button>
-          {view !== "home" && (
-            <nav>
-              <button onClick={input}>01 选择收藏</button>
-              <span>—</span>
-              <button disabled={!result && !loading} onClick={() => V("map")}>
-                02 看见线索
-              </button>
-            </nav>
-          )}
-          <div className="header-links"><button className="history-link" style={{ fontWeight: 500 }} aria-current={view === 'history' ? 'page' : undefined} onClick={showHistory}>回望</button>
-          <button className="about-link" style={{ fontWeight: 500 }} onClick={() => D("about")}>
-            关于藏见
-          </button>
+          <div className="header-links">
+          <button className="header-link collection-link" aria-current={view === 'input' || view === 'map' && !reviewingMemory ? 'page' : undefined} onClick={input}><Bookmark size={15} strokeWidth={1.8}/>收藏</button>
+          <button className="header-link history-link" aria-current={view === 'history' ? 'page' : undefined} onClick={showHistory}><HistoryIcon size={15} strokeWidth={1.8}/>回望</button>
+          <button className="header-link about-link" onClick={() => D("about")}><Info size={15} strokeWidth={1.8}/>关于藏见</button>
           </div>
         </header>
         {view === 'history' ? <History records={records} open={openMemory} remove={removeMemory} start={input} error={historyError}/> : view === "home" ? (
@@ -323,7 +319,6 @@ export function App() {
                 <Bubble name="天然的触感" small onClick={input} />
               </div>
             </section>
-            <footer className="footer landing-footer"><p>CANGJIAN © 2026 · Ruiying Liu</p></footer>
           </main>
         ) : view === "input" ? (
           <main className="input-page">
@@ -564,11 +559,9 @@ export function App() {
             )}
           </main>
         )}
-        {view !== "home" && (
-          <footer className="footer">
-            <span>CANGJIAN © 2026 · Ruiying Liu</span>
-          </footer>
-        )}
+        <footer className="footer app-footer">
+          <span>CANGJIAN © 2026 · Ruiying Liu</span>
+        </footer>
         {detail === 'save-memory' ? <Dialog title="保存这次看见" close={() => D('')}>
           <div className="memory-save-dialog"><div className="eyebrow">留住一次发现</div><h2>保存这次看见</h2><form onSubmit={e => { e.preventDefault(); persistMemory(); }}><label htmlFor="memory-title">给这组收藏起个名字</label><input id="memory-title" autoFocus maxLength={60} required value={memoryTitle} onChange={e => setMemoryTitle(e.target.value)}/>{(saveMessage || historyError) && <p role="alert">{historyError || saveMessage}</p>}<button className="primary memory-save-submit" disabled={!memoryTitle.trim() || !!historyError} type="submit">{memoryId ? '更新保存' : '保存到回望'} <ArrowUpRight size={16}/></button></form></div>
         </Dialog> : detail && (
@@ -619,7 +612,6 @@ export function App() {
                     {(["yes", "no", "maybe"] as const).map((v, n) => (
                       <button
                         key={v}
-                        disabled={busy}
                         className={feedback[pattern.id] === v ? "active" : ""}
                         aria-pressed={feedback[pattern.id] === v}
                         onClick={() => vote(pattern.id, v)}

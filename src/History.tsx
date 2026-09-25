@@ -12,8 +12,8 @@ export function History({ records, open, remove, start, error }: { records: Memo
   const days = new Date(month.getFullYear(), month.getMonth()+1, 0).getDate();
   function move(n: number) { setMonth(new Date(month.getFullYear(),month.getMonth()+n,1)); setDay(''); }
   return <main className="memories-page">
-    <div className="memory-heading"><div><div className="eyebrow">每一次喜欢，都有迹可循</div><h2>回望，看见的自己。</h2><p>留住那些「原来如此」的瞬间。</p></div><button className="memory-new" onClick={start}><Plus size={17}/>新的看见</button></div>
-    <div className="memory-toolbar"><div className="memory-tabs" aria-label="回望视图"><button aria-pressed={!calendar} onClick={() => setCalendar(false)}><LayoutGrid size={16}/>收藏组</button><button aria-pressed={calendar} onClick={() => setCalendar(true)}><CalendarDays size={16}/>日历</button></div><span>{records.length} 次看见</span></div>
+    <div className="memory-heading"><div><h2>回望，<em>看见的自己。</em></h2></div></div>
+    <div className="memory-toolbar"><div className="memory-tabs" aria-label="回望视图"><button aria-pressed={!calendar} onClick={() => setCalendar(false)}><LayoutGrid size={16}/>收藏组</button><button aria-pressed={calendar} onClick={() => setCalendar(true)}><CalendarDays size={16}/>日历</button></div><button className="memory-new" onClick={start} aria-label="新的看见" title="新的看见"><Plus size={17}/></button></div>
     {error && <p role="alert">{error}</p>}
     <div className={calendar ? 'memory-layout' : ''}>
     {calendar && <section className="memory-calendar" aria-label="看见日历">

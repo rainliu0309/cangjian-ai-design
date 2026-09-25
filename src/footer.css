@@ -1,0 +1,91 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.app > header {
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.app > main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+.app > .landing {
+  min-height: 0;
+  grid-template-rows: 1fr;
+}
+
+.app-footer {
+  flex: 0 0 auto;
+  width: min(1150px, calc(100% - 48px));
+  min-height: 0;
+  margin: auto auto 0;
+  padding: 14px 0;
+  justify-content: center;
+}
+
+@media (max-width: 699px) {
+  .app-footer {
+    padding: 12px 0;
+  }
+}
+
+.header-link {
+  position: relative;
+  gap: 6px;
+  margin-left: 0;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.header-link svg {
+  flex: 0 0 auto;
+}
+
+.header-link[aria-current="page"] {
+  color: #ff2442;
+}
+
+.header-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  height: 1px;
+  background: #ff2442;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.header-link:hover {
+  color: #ff2442;
+}
+
+.header-link:hover::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 699px) {
+  .header-links {
+    gap: 10px;
+  }
+
+  .header-link {
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .header-link svg {
+    width: 12px;
+    height: 12px;
+  }
+}
