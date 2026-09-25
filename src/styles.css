@@ -25,3 +25,5 @@ dialog:has(.detail-photo) .close{position:sticky;top:0;right:auto;float:none;z-i
 @media(max-width:699px){dialog .close{position:sticky;top:0;right:auto;float:right;margin:0 0 0 16px}dialog:has(.detail-photo) .close{float:none;margin:0 0 16px auto}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 .history-link,.about-link{position:relative;transition:color .2s}.history-link::after,.about-link::after{content:'';position:absolute;right:0;bottom:-5px;left:0;height:1px;transform:scaleX(0);transform-origin:center;background:#ff2442;transition:transform .2s}.history-link:hover,.about-link:hover{color:#ff2442}.history-link:hover::after,.about-link:hover::after{transform:scaleX(1)}
+@media(min-width:700px){.landing{align-items:center}.hero-copy{align-self:center;padding:0;transform:translateY(-40px)}.hero-art{align-self:center;transform:translateY(-40px)}}
+.hero-lines{stroke:#aab7aa;stroke-width:1.1;opacity:.78}
